@@ -8,6 +8,7 @@ import ShoppingCart from "./ShoppingCart/ShoppingCart";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Menu from "@mui/material/Menu";
+import { Link } from "react-router-dom";
 import { MenuItem } from "@mui/material";
 import { useState } from "react";
 
@@ -30,10 +31,14 @@ export default function Navigation() {
               Tech Heaven
             </Typography>
             <Typography variant="p" sx={{ fontFamily: "Arial", color: "#4f5154" }}>
-              Home
+              <Link to="/" style={{ textDecoration: "none" }}>
+                Home
+              </Link>
             </Typography>
             <Typography variant="p" sx={{ fontFamily: "Arial", color: "#4f5154" }}>
-              Products
+              <Link to="/products" style={{ textDecoration: "none" }}>
+                Products
+              </Link>
             </Typography>
           </Box>
           <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -50,7 +55,9 @@ export default function Navigation() {
             marginTop: "15px",
           }}
         >
-          <Typography variant="h6">Tech Heaven</Typography>
+          <Typography variant="h6" color="black">
+            Tech Heaven
+          </Typography>
           <Box sx={{ width: "65%", display: "flex", alignItems: "center", justifyContent: "flex-end", gap: "15px" }}>
             <IconButton>
               <ShoppingCart width={"45"} height={"20"} />
@@ -59,8 +66,16 @@ export default function Navigation() {
               <MenuIcon />
             </IconButton>
             <Menu anchorEl={anchorEl} open={open} onClose={handleMenuClose}>
-              <MenuItem sx={{ color: "#4f5154" }}>Home</MenuItem>
-              <MenuItem sx={{ color: "#4f5154" }}>Products</MenuItem>
+              <MenuItem sx={{ color: "#4f5154" }}>
+                <Link to="/" style={{ textDecoration: "none" }}>
+                  Home
+                </Link>
+              </MenuItem>
+              <MenuItem sx={{ color: "#4f5154" }}>
+                <Link to="/products" style={{ textDecoration: "none" }}>
+                  Products
+                </Link>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>
