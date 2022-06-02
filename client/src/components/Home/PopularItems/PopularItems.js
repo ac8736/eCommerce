@@ -24,7 +24,6 @@ export default function PopularItems() {
         <Grid item xl={3}>
           <PopularItemCard />
         </Grid>
-
         <Grid item xl={3}>
           <PopularItemCard />
         </Grid>

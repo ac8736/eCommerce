@@ -9,12 +9,21 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Menu from "@mui/material/Menu";
 import { Link } from "react-router-dom";
-import { MenuItem } from "@mui/material";
+import { MenuItem, Avatar } from "@mui/material";
 import { useState } from "react";
 
 export default function Navigation() {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [profileAnchor, setProfileAnchor] = useState(null);
   const open = Boolean(anchorEl);
+  const profileOpen = Boolean(profileAnchor);
+
+  function handleOpenUserMenu(event) {
+    setProfileAnchor(event.currentTarget);
+  }
+  function handleProfileClose() {
+    setProfileAnchor(null);
+  }
 
   function openMenu(event) {
     setAnchorEl(event.currentTarget);
@@ -42,6 +51,9 @@ export default function Navigation() {
             </Typography>
           </Box>
           <Box sx={{ display: "flex", alignItems: "center" }}>
+            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <Avatar alt="current user" sx={{ width: 24, height: 24 }} />
+            </IconButton>
             <IconButton>
               <ShoppingCart width={"45"} height={"25"} />
             </IconButton>
@@ -58,13 +70,30 @@ export default function Navigation() {
           <Typography variant="h6" color="black">
             Tech Heaven
           </Typography>
-          <Box sx={{ width: "65%", display: "flex", alignItems: "center", justifyContent: "flex-end", gap: "15px" }}>
+          <Box sx={{ width: "65%", display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
+            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <Avatar alt="current user" sx={{ width: 24, height: 24 }} />
+            </IconButton>
             <IconButton>
               <ShoppingCart width={"45"} height={"20"} />
             </IconButton>
             <IconButton onClick={openMenu}>
               <MenuIcon />
             </IconButton>
+
+            <Menu anchorEl={profileAnchor} open={profileOpen} onClose={handleProfileClose}>
+              <MenuItem sx={{ color: "#4f5154" }}>
+                <Link to="/" style={{ textDecoration: "none" }}>
+                  Profile
+                </Link>
+              </MenuItem>
+              <MenuItem sx={{ color: "#4f5154" }}>
+                <Link to="/products" style={{ textDecoration: "none" }}>
+                  Logout
+                </Link>
+              </MenuItem>
+            </Menu>
+
             <Menu anchorEl={anchorEl} open={open} onClose={handleMenuClose}>
               <MenuItem sx={{ color: "#4f5154" }}>
                 <Link to="/" style={{ textDecoration: "none" }}>

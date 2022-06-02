@@ -3,6 +3,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+
 import "./FeaturedCard.css";
 
 export default function FeaturedCard({ title, product, imgSrc, children }) {
