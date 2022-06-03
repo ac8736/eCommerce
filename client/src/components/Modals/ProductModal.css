@@ -2,3 +2,14 @@
   padding-top: 1rem;
   padding-bottom: 3rem;
 }
+
+.images-containers {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 2rem;
+}
+
+.preview-hover:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}

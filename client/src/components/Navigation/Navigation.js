@@ -11,16 +11,27 @@ import Menu from "@mui/material/Menu";
 import { Link } from "react-router-dom";
 import { MenuItem, Avatar } from "@mui/material";
 import { useState } from "react";
+import CartDrawer from "./Drawer/CartDrawer";
 
 export default function Navigation() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [profileAnchor, setProfileAnchor] = useState(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const open = Boolean(anchorEl);
   const profileOpen = Boolean(profileAnchor);
+
+  function openDrawer() {
+    setDrawerOpen(true);
+  }
+
+  function drawerClose() {
+    setDrawerOpen(false);
+  }
 
   function handleOpenUserMenu(event) {
     setProfileAnchor(event.currentTarget);
   }
+
   function handleProfileClose() {
     setProfileAnchor(null);
   }
@@ -28,9 +39,11 @@ export default function Navigation() {
   function openMenu(event) {
     setAnchorEl(event.currentTarget);
   }
+
   function handleMenuClose() {
     setAnchorEl(null);
   }
+
   return (
     <AppBar sx={{ boxShadow: "none", backgroundColor: "white" }}>
       <Container maxWidth="lg">
@@ -54,9 +67,10 @@ export default function Navigation() {
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
               <Avatar alt="current user" sx={{ width: 24, height: 24 }} />
             </IconButton>
-            <IconButton>
+            <IconButton onClick={openDrawer}>
               <ShoppingCart width={"45"} height={"25"} />
             </IconButton>
+            <CartDrawer drawerClose={drawerClose} open={drawerOpen} />
           </Box>
         </Toolbar>
         <Toolbar
@@ -74,9 +88,10 @@ export default function Navigation() {
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
               <Avatar alt="current user" sx={{ width: 24, height: 24 }} />
             </IconButton>
-            <IconButton>
-              <ShoppingCart width={"45"} height={"20"} />
-            </IconButton>
+
+            <ShoppingCart width={"45"} height={"20"} openDrawer={openDrawer} count={3} />
+            <CartDrawer drawerClose={drawerClose} open={drawerOpen} />
+
             <IconButton onClick={openMenu}>
               <MenuIcon />
             </IconButton>

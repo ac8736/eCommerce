@@ -1,65 +1,37 @@
 import Modal from "@mui/material/Modal";
+import { styles } from "./ProductModalStyles";
 import { Typography, Box, IconButton, Button } from "@mui/material";
 import { MdAddShoppingCart, MdOutlineRemoveShoppingCart } from "react-icons/md";
 import { useState } from "react";
 import "./ProductModal.css";
 
 export default function ProductModal({ open, modalClose, amt, setAmt }) {
-  const style = {
-    display: "flex",
-    gap: "40px",
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 1050,
-    height: 500,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-  };
+  const imgPreviews = [
+    "https://www.sony.com/image/8f499d4640b363762e66edd1a4916a10?fmt=pjpeg&wid=330&bgcolor=FFFFFF&bgc=FFFFFF",
+    "https://m.media-amazon.com/images/I/71IHMdlbg5L._AC_SS450_.jpg",
+    "https://source.unsplash.com/random/1200x800",
+  ];
 
-  const modalContent = {
-    display: "flex",
-    flexDirection: "column",
-  };
-
-  const imageStyle = {
-    width: 500,
-    height: 500,
-  };
-
-  const inputStyle = {
-    display: "flex",
-    alignItems: "center",
-    gap: "10px",
-    justifyContent: "space-evenly",
-  };
-
-  const entryStyle = {
-    width: 300,
-    textAlign: "center",
-    backgroundColor: "lightGray",
-    fontFamily: "monospace",
-    paddingTop: "5px",
-    paddingBottom: "5px",
-  };
+  const [selectedImg, setSelectedImg] = useState(imgPreviews[2]);
 
   function addCount() {
     setAmt((prev) => prev + 1);
   }
+
   function removeCount() {
     if (amt > 0) setAmt((prev) => prev - 1);
   }
 
+  function selectPreview(img) {
+    setSelectedImg(img);
+  }
+
   return (
     <Modal open={open} onClose={() => modalClose()}>
-      <Box sx={style}>
-        <Box sx={modalContent}>
-          <img src="https://source.unsplash.com/random/1200x800" alt="product" style={imageStyle} />
+      <Box sx={styles.modal}>
+        <Box sx={styles.modalContent}>
+          <img src={selectedImg} alt="product" style={styles.imageStyle} />
         </Box>
-
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <Typography variant="h4" component="h2">
             Product Title
@@ -70,11 +42,34 @@ export default function ProductModal({ open, modalClose, amt, setAmt }) {
               description.
             </Typography>
           </div>
-          <Box sx={inputStyle}>
+          <div className="images-containers">
+            <img
+              onClick={() => selectPreview(imgPreviews[0])}
+              src={imgPreviews[0]}
+              alt="product"
+              style={styles.previewStyle}
+              className="preview-hover"
+            />
+            <img
+              onClick={() => selectPreview(imgPreviews[1])}
+              src={imgPreviews[1]}
+              alt="product"
+              style={styles.previewStyle}
+              className="preview-hover"
+            />
+            <img
+              onClick={() => selectPreview(imgPreviews[2])}
+              src={imgPreviews[2]}
+              alt="product"
+              style={styles.previewStyle}
+              className="preview-hover"
+            />
+          </div>
+          <Box sx={styles.inputStyle}>
             <IconButton onClick={removeCount}>
               <MdOutlineRemoveShoppingCart style={{ width: 40, height: 25 }} />
             </IconButton>
-            <Box sx={entryStyle}>
+            <Box sx={styles.entryStyle}>
               <Typography sx={{ margin: "none", padding: "none" }}>{amt}</Typography>
             </Box>
             <IconButton onClick={addCount}>
