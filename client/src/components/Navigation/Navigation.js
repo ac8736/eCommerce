@@ -53,12 +53,12 @@ export default function Navigation() {
               Tech Heaven
             </Typography>
             <Typography variant="p" sx={{ fontFamily: "Arial", color: "#4f5154" }}>
-              <Link to="/" style={{ textDecoration: "none" }}>
+              <Link to="/" className="nav-link">
                 Home
               </Link>
             </Typography>
             <Typography variant="p" sx={{ fontFamily: "Arial", color: "#4f5154" }}>
-              <Link to="/products" style={{ textDecoration: "none" }}>
+              <Link to="/products" className="nav-link">
                 Products
               </Link>
             </Typography>
@@ -73,6 +73,7 @@ export default function Navigation() {
             <CartDrawer drawerClose={drawerClose} open={drawerOpen} />
           </Box>
         </Toolbar>
+
         <Toolbar
           sx={{
             display: { xs: "flex", md: "none" },
@@ -97,26 +98,26 @@ export default function Navigation() {
             </IconButton>
 
             <Menu anchorEl={profileAnchor} open={profileOpen} onClose={handleProfileClose}>
-              <MenuItem sx={{ color: "#4f5154" }}>
-                <Link to="/" style={{ textDecoration: "none" }}>
-                  Profile
+              <MenuItem sx={{ color: "#4f5154" }} onClick={handleProfileClose}>
+                <Link to="/signin" className="nav-link">
+                  Sign In
                 </Link>
               </MenuItem>
-              <MenuItem sx={{ color: "#4f5154" }}>
-                <Link to="/products" style={{ textDecoration: "none" }}>
+              <MenuItem sx={{ color: "#4f5154" }} onClick={handleProfileClose}>
+                <Link to="/products" className="nav-link">
                   Logout
                 </Link>
               </MenuItem>
             </Menu>
 
             <Menu anchorEl={anchorEl} open={open} onClose={handleMenuClose}>
-              <MenuItem sx={{ color: "#4f5154" }}>
-                <Link to="/" style={{ textDecoration: "none" }}>
+              <MenuItem sx={{ color: "#4f5154" }} onClick={handleMenuClose}>
+                <Link to="/" className="nav-link">
                   Home
                 </Link>
               </MenuItem>
-              <MenuItem sx={{ color: "#4f5154" }}>
-                <Link to="/products" style={{ textDecoration: "none" }}>
+              <MenuItem sx={{ color: "#4f5154" }} onClick={handleMenuClose}>
+                <Link to="/products" className="nav-link">
                   Products
                 </Link>
               </MenuItem>

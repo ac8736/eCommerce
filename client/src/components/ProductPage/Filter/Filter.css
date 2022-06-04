@@ -1,0 +1,17 @@
+.filter-container {
+  display: flex;
+  border: 1px solid black;
+  flex-direction: column;
+  height: 75vh;
+  width: fit-content;
+  position: fixed;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.search-bar {
+  border: 1px solid black;
+  padding: 3px;
+  margin-left: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}

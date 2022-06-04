@@ -3,10 +3,17 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
 
 import "./FeaturedCard.css";
 
 export default function FeaturedCard({ title, product, imgSrc, children }) {
+  const navigate = useNavigate();
+
+  function handleClick() {
+    navigate("/products");
+  }
+
   return (
     <Card raised sx={{ width: "70%", margin: "auto", height: 400, borderRadius: "15px" }} className="background">
       <CardContent sx={{ display: "flex" }}>
@@ -24,7 +31,12 @@ export default function FeaturedCard({ title, product, imgSrc, children }) {
             <br />
             {children}
           </Typography>
-          <Button variant="contained" size="small" sx={{ width: "20%", marginBottom: "auto", marginLeft: "auto" }}>
+          <Button
+            variant="contained"
+            size="small"
+            sx={{ width: "20%", marginBottom: "auto", marginLeft: "auto" }}
+            onClick={handleClick}
+          >
             Shop
           </Button>
         </Box>
