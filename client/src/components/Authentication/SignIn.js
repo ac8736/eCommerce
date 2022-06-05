@@ -8,6 +8,7 @@ import { useState } from "react";
 export default function SignIn() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [age, setAge] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [newAcc, setNewAcc] = useState(false);
@@ -40,6 +41,14 @@ export default function SignIn() {
                 type="text"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
+              />
+              <TextField
+                variant="outlined"
+                label="Age"
+                sx={{ width: "30%" }}
+                type="number"
+                value={age}
+                onChange={(e) => setAge(e.target.value)}
               />
             </>
           ) : null}

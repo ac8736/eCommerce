@@ -68,7 +68,7 @@ export default function Navigation() {
               <Avatar alt="current user" sx={{ width: 24, height: 24 }} />
             </IconButton>
             <IconButton onClick={openDrawer}>
-              <ShoppingCart width={"45"} height={"25"} />
+              <ShoppingCart width={"45"} height={"25"} count={0} />
             </IconButton>
             <CartDrawer drawerClose={drawerClose} open={drawerOpen} />
           </Box>
@@ -90,7 +90,9 @@ export default function Navigation() {
               <Avatar alt="current user" sx={{ width: 24, height: 24 }} />
             </IconButton>
 
-            <ShoppingCart width={"45"} height={"20"} openDrawer={openDrawer} count={3} />
+            <IconButton onClick={openDrawer}>
+              <ShoppingCart width={"45"} height={"25"} count={0} />
+            </IconButton>
             <CartDrawer drawerClose={drawerClose} open={drawerOpen} />
 
             <IconButton onClick={openMenu}>
@@ -106,6 +108,11 @@ export default function Navigation() {
               <MenuItem sx={{ color: "#4f5154" }} onClick={handleProfileClose}>
                 <Link to="/products" className="nav-link">
                   Logout
+                </Link>
+              </MenuItem>
+              <MenuItem sx={{ color: "#4f5154" }} onClick={handleProfileClose}>
+                <Link to="/profile" className="nav-link">
+                  Profile
                 </Link>
               </MenuItem>
             </Menu>
