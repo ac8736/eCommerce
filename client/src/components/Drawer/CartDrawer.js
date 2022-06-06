@@ -1,7 +1,10 @@
 import { Drawer, Box, Typography, Button } from "@mui/material";
 import CartCards from "./CartContents/CartCards";
+import { useNavigate } from "react-router-dom";
 
 export default function CartDrawer({ drawerClose, open }) {
+  const navigate = useNavigate();
+
   return (
     <Drawer anchor={"right"} onClose={() => drawerClose()} open={open}>
       <Box sx={{ width: 400, display: "flex", flexDirection: "column", alignItems: "center", paddingTop: "2rem" }}>
@@ -11,7 +14,14 @@ export default function CartDrawer({ drawerClose, open }) {
           <CartCards />
           <CartCards />
         </Box>
-        <Button variant="contained" sx={{ marginTop: "3rem" }}>
+        <Button
+          variant="contained"
+          sx={{ marginTop: "3rem" }}
+          onClick={() => {
+            drawerClose();
+            navigate("/checkout");
+          }}
+        >
           CHECKOUT
         </Button>
       </Box>

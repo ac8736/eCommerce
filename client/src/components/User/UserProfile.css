@@ -1,10 +1,9 @@
 .profile-container {
   margin: auto;
   margin-top: 100px;
-  border: 1px solid black;
   display: flex;
-  gap: 10px;
-  width: 70%;
+  gap: 60px;
+  width: 75%;
 }
 
 .profile-info {
@@ -12,6 +11,7 @@
   flex-direction: column;
   align-items: center;
   gap: 1rem;
+  width: fit-content;
 }
 
 .profile {
@@ -19,7 +19,13 @@
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  width: 300px;
 }
 
 .profile-products {
+  display: flex;
+  gap: 25px;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
 }

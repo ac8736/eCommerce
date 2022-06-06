@@ -11,7 +11,7 @@ import Menu from "@mui/material/Menu";
 import { Link } from "react-router-dom";
 import { MenuItem, Avatar } from "@mui/material";
 import { useState } from "react";
-import CartDrawer from "./Drawer/CartDrawer";
+import CartDrawer from "../Drawer/CartDrawer";
 
 export default function Navigation() {
   const [anchorEl, setAnchorEl] = useState(null);

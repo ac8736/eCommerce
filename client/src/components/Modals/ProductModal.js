@@ -26,6 +26,10 @@ export default function ProductModal({ open, modalClose, amt, setAmt }) {
     setSelectedImg(img);
   }
 
+  function handleClick() {
+    modalClose();
+  }
+
   return (
     <Modal open={open} onClose={() => modalClose()}>
       <Box sx={styles.modal}>
@@ -76,7 +80,9 @@ export default function ProductModal({ open, modalClose, amt, setAmt }) {
               <MdAddShoppingCart style={{ width: 40, height: 25 }} />
             </IconButton>
           </Box>
-          <Button variant="contained">Add to Cart</Button>
+          <Button variant="contained" onClick={handleClick}>
+            Add to Cart
+          </Button>
         </Box>
       </Box>
     </Modal>
