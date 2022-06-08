@@ -12,8 +12,13 @@ import { Link } from "react-router-dom";
 import { MenuItem, Avatar } from "@mui/material";
 import { useState } from "react";
 import CartDrawer from "../Drawer/CartDrawer";
+import { logout } from "../../features/user";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Navigation() {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.value);
+
   const [anchorEl, setAnchorEl] = useState(null);
   const [profileAnchor, setProfileAnchor] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -100,21 +105,33 @@ export default function Navigation() {
             </IconButton>
 
             <Menu anchorEl={profileAnchor} open={profileOpen} onClose={handleProfileClose}>
-              <MenuItem sx={{ color: "#4f5154" }} onClick={handleProfileClose}>
-                <Link to="/signin" className="nav-link">
-                  Sign In
-                </Link>
-              </MenuItem>
-              <MenuItem sx={{ color: "#4f5154" }} onClick={handleProfileClose}>
-                <Link to="/products" className="nav-link">
-                  Logout
-                </Link>
-              </MenuItem>
-              <MenuItem sx={{ color: "#4f5154" }} onClick={handleProfileClose}>
-                <Link to="/profile" className="nav-link">
-                  Profile
-                </Link>
-              </MenuItem>
+              {!user.loggedIn ? (
+                <MenuItem sx={{ color: "#4f5154" }} onClick={handleProfileClose}>
+                  <Link to="/signin" className="nav-link">
+                    Sign In
+                  </Link>
+                </MenuItem>
+              ) : null}
+
+              {user.loggedIn ? (
+                <MenuItem sx={{ color: "#4f5154" }} onClick={handleProfileClose}>
+                  <Link to="/profile" className="nav-link">
+                    Profile
+                  </Link>
+                </MenuItem>
+              ) : null}
+
+              {user.loggedIn ? (
+                <MenuItem sx={{ color: "#4f5154" }} onClick={handleProfileClose}>
+                  <Link
+                    to="/"
+                    className="nav-link"
+                    onClick={() => dispatch(logout({ firstName: "", lastName: "", age: "", email: "", loggedIn: false }))}
+                  >
+                    Logout
+                  </Link>
+                </MenuItem>
+              ) : null}
             </Menu>
 
             <Menu anchorEl={anchorEl} open={open} onClose={handleMenuClose}>

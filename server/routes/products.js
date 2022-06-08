@@ -1,9 +1,9 @@
 import express from "express";
-import { getProducts, createProduct } from "../controllers/products.js";
+import { getProducts, createProduct, deleteProduct } from "../controllers/products.js";
 const productRouter = express.Router();
 
 productRouter.get("/", getProducts);
 productRouter.post("/", createProduct);
-//router.patch("/:id");
+productRouter.delete("/", deleteProduct);
 
 export default productRouter;
