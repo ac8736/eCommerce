@@ -1,68 +1,33 @@
 import "./ProductContents.css";
 import PopularItemCard from "../../Home/PopularItems/PopularItemCard/PopularItemCard";
 import Grid from "@mui/material/Grid";
-import { listAll, getDownloadURL, ref } from "firebase/storage";
-import { storage } from "../../../firebase";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 export default function ProductContents() {
   const [itemsRetrieved, setItemsRetrieved] = useState(false);
   const [items, setItems] = useState([]);
 
-  const user = useSelector((state) => state.user.value);
-
-  async function getItems() {
-    listAll(ref(storage, `${user.email}`)).then((res) => {
-      console.log(res);
-    });
-  }
+  useEffect(() => {
+    async function getItems() {
+      const jsonData = await fetch("http://localhost:5000/products");
+      const data = await jsonData.json();
+      setItems(data);
+    }
+    getItems();
+    console.log(items);
+    setItemsRetrieved(true);
+  }, []);
 
   return (
     <div className="content-container">
       <Grid container spacing={2}>
-        <Grid item xl={3}>
-          <PopularItemCard />
-        </Grid>
-        <Grid item xl={3}>
-          <PopularItemCard />
-        </Grid>
-        <Grid item xl={3}>
-          <PopularItemCard />
-        </Grid>
-        <Grid item xl={3}>
-          <PopularItemCard />
-        </Grid>
-        <Grid item xl={3}>
-          <PopularItemCard />
-        </Grid>
-        <Grid item xl={3}>
-          <PopularItemCard />
-        </Grid>
-        <Grid item xl={3}>
-          <PopularItemCard />
-        </Grid>
-        <Grid item xl={3}>
-          <PopularItemCard />
-        </Grid>
-        <Grid item xl={3}>
-          <PopularItemCard />
-        </Grid>
-        <Grid item xl={3}>
-          <PopularItemCard />
-        </Grid>
-        <Grid item xl={3}>
-          <PopularItemCard />
-        </Grid>
-        <Grid item xl={3}>
-          <PopularItemCard />
-        </Grid>
-        <Grid item xl={3}>
-          <PopularItemCard />
-        </Grid>
-        <Grid item xl={3}>
-          <PopularItemCard />
-        </Grid>
+        {itemsRetrieved &&
+          items.map((item) => (
+            <Grid item xl={12}>
+              <PopularItemCard name={item.name} price={item.price} images={item.image} description={item.description} />
+            </Grid>
+          ))}
       </Grid>
     </div>
   );

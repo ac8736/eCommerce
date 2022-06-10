@@ -15,11 +15,8 @@ export default function AddProduct({ open, modalClose, productAdded }) {
   const [productDescription, setProductDescription] = useState("");
   const [productPrice, setProductPrice] = useState("");
   const [category, setCategory] = useState("");
-  const [image, setImage] = useState([]);
   const [productImage, setProductImage] = useState(null);
-
   const [loading, setLoading] = useState(false);
-
   const user = useSelector((state) => state.user.value);
 
   async function submitProduct() {
@@ -31,42 +28,39 @@ export default function AddProduct({ open, modalClose, productAdded }) {
       alert("You must upload at 3 images");
       return;
     } else {
-      for (let i = 0; i < productImage.length; i++) {
-        const imageRef = ref(storage, `${user.email}/${productName}/${productImage[i].name}`);
-        await uploadBytes(imageRef, productImage[i]);
-        //console.log("finished uploading");
+      for await (const img of productImage) {
+        const imageRef = ref(storage, `${user.email}/${productName}/${img.name}`);
+        await uploadBytes(imageRef, img);
       }
       const imageArray = [];
       const response = await listAll(ref(storage, `${user.email}/${productName}`));
-      //console.log("obtaining all");
-
-      // await response.items.forEach((item) => {
-      //   getDownloadURL(item).then((url) => imageArray.push(url));
-      //   //console.log("retrieved urls");
-      // });
-
-      for (const item of response.items) {
+      console.clear();
+      for await (const item of response.items) {
         const url = await getDownloadURL(item);
         imageArray.push(url);
+        console.log(imageArray);
       }
 
-      setImage(imageArray);
-      //console.log("image links: " + image);
-      if (image.length > 0) {
-        await fetch("http://localhost:5000/products", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name: productName,
-            price: productPrice,
-            description: productDescription,
-            category: category,
-            owner: user.email,
-            image: image,
-          }),
-        });
+      if (imageArray.length > 0) {
+        try {
+          await fetch("http://localhost:5000/products", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              name: productName,
+              price: productPrice,
+              description: productDescription,
+              category: category,
+              owner: user.email,
+              image: imageArray,
+            }),
+          });
+        } catch (error) {
+          console.log(error);
+          setLoading(false);
+        }
         setLoading(false);
         modalClose();
         productAdded();
@@ -76,7 +70,22 @@ export default function AddProduct({ open, modalClose, productAdded }) {
       }
     }
   }
-
+  const inputContents = [
+    { label: "Product Name", type: "text", value: productName, onChange: (e) => setProductName(e.target.value) },
+    {
+      label: "Brief Product Description",
+      type: "text",
+      value: productDescription,
+      onChange: (e) => setProductDescription(e.target.value),
+    },
+    { label: "Price", type: "number", value: productPrice, onChange: (e) => setProductPrice(e.target.value) },
+    {
+      label: "Category (Computers/Components/Peripherals)",
+      type: "text",
+      value: category,
+      onChange: (e) => setCategory(e.target.value),
+    },
+  ];
   return (
     <Modal open={open} onClose={() => modalClose()}>
       <Box sx={styles.modal}>
@@ -90,38 +99,16 @@ export default function AddProduct({ open, modalClose, productAdded }) {
             Add a Product
           </Typography>
           <Box sx={styles.modalContent}>
-            <TextField
-              sx={styles.textFieldStyle}
-              variant="outlined"
-              label="Product Name"
-              type="text"
-              value={productName}
-              onChange={(e) => setProductName(e.target.value)}
-            />
-            <TextField
-              sx={styles.textFieldStyle}
-              variant="outlined"
-              label="Brief Product Description"
-              type="text"
-              value={productDescription}
-              onChange={(e) => setProductDescription(e.target.value)}
-            />
-            <TextField
-              sx={styles.textFieldStyle}
-              variant="outlined"
-              label="Price"
-              type="number"
-              value={productPrice}
-              onChange={(e) => setProductPrice(e.target.value)}
-            />
-            <TextField
-              sx={styles.textFieldStyle}
-              variant="outlined"
-              label="Category (Computers/Components/Peripherals)"
-              type="text"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-            />
+            {inputContents.map((input) => (
+              <TextField
+                sx={styles.textFieldStyle}
+                variant="outlined"
+                label={input.label}
+                type={input.type}
+                value={input.value}
+                onChange={input.onChange}
+              />
+            ))}
           </Box>
           <Typography variant="h4" component="h2">
             Upload Images

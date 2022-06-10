@@ -20,20 +20,21 @@ export default function UserProfile() {
   const user = useSelector((state) => state.user.value);
 
   async function getUserItems() {
-    const response = await fetch("http://localhost:5000/products");
-    if (response.status === 200) {
-      const products = await response.json();
-      console.log(products);
-      const filteredItems = products.find((product) => product.owner === user.email);
-      console.log(filteredItems);
-      //console.log("user products: " + userProducts, " type: " + typeof userProducts);
-      const userProducts = [];
-      products.forEach((element) => {
-        if (element.owner === user.email) {
-          userProducts.push(element);
-        }
-      });
-      setUserItems(userProducts);
+    try {
+      const response = await fetch("http://localhost:5000/products");
+      if (response.status === 200) {
+        const products = await response.json();
+        const userProducts = [];
+        products.forEach((element) => {
+          if (element.owner === user.email) {
+            userProducts.push(element);
+          }
+        });
+        setUserItems(userProducts);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log(error);
       setLoading(false);
     }
   }
@@ -67,23 +68,23 @@ export default function UserProfile() {
       </div>
       <div className="profile-products">
         <Typography variant="h4">Your Products</Typography>
-        {userItems.length === 0 && (
-          <div>
-            <Typography>No Products Available.</Typography>
-          </div>
-        )}
+
         <Grid container spacing={2}>
           {!loading ? (
-            userItems.map((item) => (
-              <Grid item xl={4} id={item._id}>
-                <ProfileCard
-                  productName={item.name}
-                  price={item.price}
-                  img={item.image[0]}
-                  productAdded={() => setProductAdded((prev) => !prev)}
-                />
-              </Grid>
-            ))
+            userItems.length === 0 ? (
+              <Typography>No Products Available.</Typography>
+            ) : (
+              userItems.map((item) => (
+                <Grid item xl={4} id={item._id}>
+                  <ProfileCard
+                    productName={item.name}
+                    price={item.price}
+                    img={item.image[0]}
+                    productAdded={() => setProductAdded((prev) => !prev)}
+                  />
+                </Grid>
+              ))
+            )
           ) : (
             <CircularProgress />
           )}

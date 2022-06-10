@@ -5,14 +5,8 @@ import { MdAddShoppingCart, MdOutlineRemoveShoppingCart } from "react-icons/md";
 import { useState } from "react";
 import "./ProductModal.css";
 
-export default function ProductModal({ open, modalClose, amt, setAmt }) {
-  const imgPreviews = [
-    "https://www.sony.com/image/8f499d4640b363762e66edd1a4916a10?fmt=pjpeg&wid=330&bgcolor=FFFFFF&bgc=FFFFFF",
-    "https://m.media-amazon.com/images/I/71IHMdlbg5L._AC_SS450_.jpg",
-    "https://source.unsplash.com/random/1200x800",
-  ];
-
-  const [selectedImg, setSelectedImg] = useState(imgPreviews[2]);
+export default function ProductModal({ open, modalClose, amt, setAmt, images, name, description }) {
+  const [selectedImg, setSelectedImg] = useState(images[0]);
 
   function addCount() {
     setAmt((prev) => prev + 1);
@@ -38,32 +32,31 @@ export default function ProductModal({ open, modalClose, amt, setAmt }) {
         </Box>
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <Typography variant="h4" component="h2">
-            Product Title
+            {name}
           </Typography>
           <div className="desc-container">
             <Typography variant="p" fontFamily="arial">
-              Product description.Product description.Product description.Product description.Product description.Product
-              description.
+              {description}
             </Typography>
           </div>
           <div className="images-containers">
             <img
-              onClick={() => selectPreview(imgPreviews[0])}
-              src={imgPreviews[0]}
+              onClick={() => selectPreview(images[0])}
+              src={images[0]}
               alt="product"
               style={styles.previewStyle}
               className="preview-hover"
             />
             <img
-              onClick={() => selectPreview(imgPreviews[1])}
-              src={imgPreviews[1]}
+              onClick={() => selectPreview(images[1])}
+              src={images[1]}
               alt="product"
               style={styles.previewStyle}
               className="preview-hover"
             />
             <img
-              onClick={() => selectPreview(imgPreviews[2])}
-              src={imgPreviews[2]}
+              onClick={() => selectPreview(images[2])}
+              src={images[2]}
               alt="product"
               style={styles.previewStyle}
               className="preview-hover"

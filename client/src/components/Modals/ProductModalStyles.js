@@ -21,14 +21,14 @@ export const styles = {
   },
 
   imageStyle: {
-    width: 500,
-    height: 500,
+    width: 450,
+    height: 450,
     borderRadius: "10px",
   },
 
   previewStyle: {
-    width: 120,
-    height: 120,
+    width: 100,
+    height: 100,
     borderRadius: "10px",
     boxShadow: "0px 0px 4px #000",
   },
