@@ -58,12 +58,19 @@ export default function SignIn() {
         console.log(error);
       }
     } else {
-      const users = await fetch("http://localhost:5000/users");
-      const usersJSON = await users.json();
-      const user = usersJSON.find((element) => element.email === email);
+      const validUser = await fetch("http://localhost:5000/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
 
-      if (user && user.password === password) {
-        navigate("/");
+      if (validUser.status === 200) {
+        const user = await validUser.json();
         dispatch(
           login({
             firstName: user.firstName,
@@ -73,6 +80,7 @@ export default function SignIn() {
             loggedIn: true,
           })
         );
+        navigate("/profile");
       } else {
         setPassword("");
         alert("Incorrect email or password");

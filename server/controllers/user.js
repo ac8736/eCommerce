@@ -20,3 +20,21 @@ export async function createUser(request, response) {
     console.log(error);
   }
 }
+
+export async function loginUser(request, response) {
+  const { email, password } = request.body;
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      response.status(404).json({ message: "User not found" });
+    }
+    const isMatch = await user.comparePassword(password);
+    if (!isMatch) {
+      response.status(401).json({ message: "Incorrect password" });
+    }
+    console.log("200 status: ", email);
+    response.status(200).json(user);
+  } catch (error) {
+    console.log(error);
+  }
+}
