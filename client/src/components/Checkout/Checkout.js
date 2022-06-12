@@ -12,9 +12,13 @@ export default function Checkout() {
       <Box sx={styles.checkoutCart}>
         <Typography variant="h5">Your Cart</Typography>
         <Grid container spacing={2}>
-          <Grid item xl={4}>
-            {/* <CheckoutCard name={item.name} price={item.price} images={item.image} description={item.description} /> */}
-          </Grid>
+          {cart.value.items.map((item) => {
+            return (
+              <Grid item xl={4} key={item.productName}>
+                <CheckoutCard name={item.productName} qty={item.qty} price={item.price} />
+              </Grid>
+            );
+          })}
         </Grid>
       </Box>
       <Box>

@@ -4,12 +4,11 @@ import { Typography, Box, IconButton, Button } from "@mui/material";
 import { MdAddShoppingCart, MdOutlineRemoveShoppingCart } from "react-icons/md";
 import { useState } from "react";
 import "./ProductModal.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addToCart } from "../../features/cart";
 
-export default function ProductModal({ open, modalClose, amt, setAmt, images, name, description }) {
+export default function ProductModal({ open, modalClose, amt, setAmt, images, name, description, price }) {
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart);
   const [selectedImg, setSelectedImg] = useState(images[0]);
 
   function addCount() {
@@ -25,7 +24,7 @@ export default function ProductModal({ open, modalClose, amt, setAmt, images, na
   }
 
   function handleClick() {
-    const payload = { productName: name, qty: amt };
+    const payload = { productName: name, qty: amt, price: price };
     dispatch(addToCart(payload));
 
     modalClose();

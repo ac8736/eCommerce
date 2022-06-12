@@ -37,6 +37,7 @@ export default function PopularItemCard({ name, price, images, description }) {
         images={images}
         name={name}
         description={description}
+        price={price}
       />
     </div>
   );

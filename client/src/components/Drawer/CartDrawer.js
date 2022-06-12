@@ -12,7 +12,7 @@ export default function CartDrawer({ drawerClose, open }) {
         <Typography variant="h2">Your Cart</Typography>
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px", marginTop: "1rem" }}>
           {cart.value.items.map((item) => (
-            <CartCards key={item.productName} />
+            <CartCards key={item.productName} name={item.productName} />
           ))}
         </Box>
         {cart.value.items.length > 0 ? (
