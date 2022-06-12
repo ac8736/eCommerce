@@ -4,7 +4,7 @@ import { Typography } from "@mui/material";
 import { MdAddShoppingCart, MdOutlineRemoveShoppingCart } from "react-icons/md";
 import { useState } from "react";
 
-export default function CartCards() {
+export default function CartCards({ name }) {
   const [amt, setAmt] = useState(0);
   function addCount() {
     setAmt((prev) => prev + 1);
@@ -18,7 +18,7 @@ export default function CartCards() {
       <img src="https://source.unsplash.com/random/1200x800" width="150" height="100" alt="items" />
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%" }}>
         <Typography variant="p" fontFamily={"arial"}>
-          Headphones
+          {name}
         </Typography>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
           <IconButton onClick={removeCount}>

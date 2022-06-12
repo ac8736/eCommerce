@@ -10,7 +10,7 @@ export const styles = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    maxWidth: "50%",
+    width: "50%",
     gap: "20px",
   },
 };

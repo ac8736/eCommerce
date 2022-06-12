@@ -14,7 +14,6 @@ export default function PopularItems() {
       setItems(data);
     }
     getItems();
-    console.log(items);
     setItemsRetrieved(true);
   }, []);
 
@@ -30,7 +29,13 @@ export default function PopularItems() {
         {itemsRetrieved &&
           items.map((item) => (
             <Grid item xl={3}>
-              <PopularItemCard name={item.name} price={item.price} description={item.description} images={item.image} />
+              <PopularItemCard
+                key={item._id}
+                name={item.name}
+                price={item.price}
+                description={item.description}
+                images={item.image}
+              />
             </Grid>
           ))}
       </Grid>
