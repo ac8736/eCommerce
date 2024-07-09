@@ -1,0 +1,27 @@
+.link {
+  font-size: 1.4rem;
+  text-decoration: none;
+  color: #686868;
+  font-weight: 500;
+  transition-duration: 500ms;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  width: fit-content;
+}
+
+.link > span {
+  margin-left: 0.9em;
+}
+
+.link:hover {
+  color: #353535;
+}
+
+.sound-bar {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-left: 3rem;
+  margin-top: 3rem;
+}
